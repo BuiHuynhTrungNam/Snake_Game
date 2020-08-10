@@ -33,4 +33,6 @@ public:
 	void DrawSnake();			
 	void Move(int optionMap);				//Snake's movement
 	void ResetDir();						//reset dir
+	void clearPoint(int x, int y);
+	void clearAll();
 };

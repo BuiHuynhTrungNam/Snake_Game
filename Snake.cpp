@@ -68,13 +68,20 @@ void Snake::DrawSnake() {
 void Snake::ResetDir() {
 	dir = '\0';
 }
-void Snake::Move(int optionMap){
-	system("cls");
-	if (optionMap == 1) {
-		TextColor(ColorCode_Pink);
-		Map::MapClassic();
+void Snake::clearPoint(int x, int y) {
+	gotoXY(x,y);
+	cout << " ";
+}
+void Snake::clearAll() {
+	for (int i = 0; i < size; i++) {
+		clearPoint(Cell[i]->getX(), Cell[i]->getY());
 	}
+	clearPoint(fruit.food.getX(), fruit.food.getY());
+}
+void Snake::Move(int optionMap){
 	if (state == 0) {  //if snake die
+		clearAll();
+		gotoXY(51, 21);
 			cout << "\nGame Over";
 			cout << "\nPress any key to start again";
 			_getch();
@@ -94,7 +101,8 @@ void Snake::Move(int optionMap){
 	}
 	//Check eat food
 	if (fruit.food.getX() == Cell[0]->getX() && fruit.food.getY() == Cell[0]->getY()){
-		addCell(0, 0);
+		addCell(51, 21);
+		clearPoint(fruit.food.getX(), fruit.food.getY());
 		fruit.food.setPoint((rand() % (MAXFRAME_X - 1) + 1), (rand() % (MAXFRAME_Y - 1)) + 1);
 	}
 	//draw snake
@@ -106,5 +114,7 @@ void Snake::Move(int optionMap){
 	if (!blink)	fruit.food.Draw('#');
 	//Blink
 	blink = !blink;
-	//Sleep(30);
+	Sleep(100);
+	clearPoint(Cell[size-1]->getX(),Cell[size-1]->getY());
+	
 }
