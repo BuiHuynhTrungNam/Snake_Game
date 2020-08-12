@@ -2,6 +2,13 @@
 #include"Map.h"
 #include"Console.h"
 #include"Control.h"
+#include"Point.h"
+
+#define TOUCH_LINE_TOP 0
+#define TOUCH_LINE_BOTTOM (MAXFRAME_Y + 1)
+#define TOUCH_LINE_LEFT 0
+#define TOUCH_LINE_RIGHT (MAXFRAME_X + 1)
+
 int Map::PlayMode(){
 	int option;
 	TextColor(ColorCode_Blue);
@@ -44,6 +51,43 @@ void Map::GameOverScreeen() {
 	gotoXY(15, 12);
 	cout << "Your Chose: ";
 }
+
+void Map::drawLines() {
+	int xIndex, yIndex;
+	//it will be changed when we have more information 
+	//draw line at the top of program
+	xIndex = 0, yIndex = TOUCH_LINE_TOP;
+	while (xIndex <= TOUCH_LINE_RIGHT) {
+		gotoXY(xIndex, yIndex);
+		cout << "+";
+		xIndex++;
+	}
+
+	//draw line at the bottom of program
+	xIndex = 0, yIndex = TOUCH_LINE_BOTTOM;
+	while (xIndex <= TOUCH_LINE_RIGHT) {
+		gotoXY(xIndex, yIndex);
+		cout << "+";
+		xIndex++;
+	}
+
+	//draw line at the left of program
+	xIndex = TOUCH_LINE_LEFT, yIndex = 0;
+	while (yIndex <= TOUCH_LINE_BOTTOM) {
+		gotoXY(xIndex, yIndex);
+		cout << "+";
+		yIndex++;
+	}
+
+	//draw line at the right of program
+	xIndex = TOUCH_LINE_RIGHT, yIndex = 0;
+	while (yIndex <= TOUCH_LINE_BOTTOM) {
+		gotoXY(xIndex, yIndex);
+		cout << "+";
+		yIndex++;
+	}
+
+}
 void Map::MapClassic() {
 	TextColor(ColorCode_Cyan);
 	cout << "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" << endl;
@@ -75,7 +119,8 @@ void Map::MainMenu(Snake &snake) {
 	if (option == 1) {
 		do {
 			system("cls");
-			Map::MapClassic();
+			Map::drawLines();
+			//Map::MapClassic();
 			PlayGame::PlayMode_1(snake);
 			Map::GameOverScreeen();
 			cin >> PlayAgain;

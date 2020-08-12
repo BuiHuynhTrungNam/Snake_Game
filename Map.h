@@ -8,6 +8,7 @@ public:
 	static void WelcomeScreen();
 	static void MainMenu(Snake& snake);
 	static void GameOverScreeen();
+	static void drawLines();
 	static void MapClassic();
 };
 
