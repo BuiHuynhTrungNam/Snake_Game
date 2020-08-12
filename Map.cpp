@@ -31,7 +31,21 @@ void Map::WelcomeScreen(){
 	cout << endl;
 
 }
+void Map::GameOverScreeen() {
+	TextColor(ColorCode_Cyan);
+	gotoXY(15, 8);
+	cout << "GAME OVER !!!";
+	gotoXY(15, 9);
+	cout << "Do you want to play again ?";
+	gotoXY(15, 10);
+	cout << "1. Yes";
+	gotoXY(15, 11);
+	cout << "2. No";
+	gotoXY(15, 12);
+	cout << "Your Chose: ";
+}
 void Map::MapClassic() {
+	TextColor(ColorCode_Cyan);
 	cout << "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" << endl;
 	cout << "A                                                 A" << endl;
 	cout << "A                                                 A" << endl;
@@ -57,5 +71,14 @@ void Map::MapClassic() {
 void Map::MainMenu(Snake &snake) {
 	WelcomeScreen();
 	int option = PlayMode();
-	PlayGame::PlayMode_1(snake, option);
+	int PlayAgain;
+	if (option == 1) {
+		do {
+			system("cls");
+			Map::MapClassic();
+			PlayGame::PlayMode_1(snake);
+			Map::GameOverScreeen();
+			cin >> PlayAgain;
+		} while (PlayAgain == 1);
+	}
 }

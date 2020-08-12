@@ -3,11 +3,11 @@
 #include"Map.h"
 #include<time.h>
 
-#include "Game.h"
+//#include "Game.h"
 
 int main()
 {
-	Game game;
+	//Game game;
 
 
 	Nocursortype();		//hide pointer

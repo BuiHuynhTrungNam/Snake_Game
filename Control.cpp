@@ -1,7 +1,7 @@
 #pragma once
 #include"Control.h"
-void PlayGame::PlayMode_1(Snake& snake, int option){
-	char op = 's'; //s = start
+void PlayGame::PlayMode_1(Snake& snake){
+	char op;
 	do {
 		if (_kbhit()) {
 			op = _getch();
@@ -24,10 +24,11 @@ void PlayGame::PlayMode_1(Snake& snake, int option){
 				snake.TurnRight();
 				break;
 			}
-			snake.Move(option);
+			snake.Move();
 		}
 		else {
-			snake.Move(option);
+			snake.Move();
 		}
-	} while (op != 'q'); //q = quit
+		if (snake.isDead()) break;
+	} while (true); 
 }

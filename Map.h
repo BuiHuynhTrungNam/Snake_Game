@@ -7,6 +7,7 @@ public:
 	static int PlayMode();
 	static void WelcomeScreen();
 	static void MainMenu(Snake& snake);
+	static void GameOverScreeen();
 	static void MapClassic();
 };
 

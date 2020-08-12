@@ -20,7 +20,6 @@ private:
 	char dir;	//current director of snake
 	Food fruit;	//food 
 	int state;	//shows state of snake i.e living (1), dead (0), when create snake's state = 1
-	int blink;	//fruit blink
 public:
 	Snake();
 	void addCell(int x, int y);	//add 1 point if snake eat food (size +1 )
@@ -31,8 +30,8 @@ public:
 	void CheckDir();			//Check New direction from keyboard
 	bool isDead();				//Check Dead
 	void DrawSnake();			
-	void Move(int optionMap);				//Snake's movement
-	void ResetDir();						//reset dir
+	void Move();				//Snake's movement
+	void ResetAll();						//reset dir
 	void clearPoint(int x, int y);
 	void clearAll();
 };

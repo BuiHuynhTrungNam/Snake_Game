@@ -12,7 +12,6 @@ Snake::Snake(){
 		Cell[i] = NULL;
 	}
 	state = 1;
-	blink = 1;
 	isUpdateSize = false;
 }
 void Snake::addCell(int x, int y){
@@ -65,8 +64,12 @@ void Snake::DrawSnake() {
 		Cell[i]->Draw();
 	}
 }
-void Snake::ResetDir() {
+void Snake::ResetAll() {
 	dir = '\0';
+	state = 1;
+	size = 1;
+	Cell[0]->setPoint(15, 15);
+	fruit.food.setPoint((rand() % (MAXFRAME_X - 1) + 1), (rand() % (MAXFRAME_Y - 1)) + 1);
 }
 void Snake::clearPoint(int x, int y) {
 	gotoXY(x,y);
@@ -78,26 +81,15 @@ void Snake::clearAll() {
 	}
 	clearPoint(fruit.food.getX(), fruit.food.getY());
 }
-void Snake::Move(int optionMap){
-	if (state == 0) {  //if snake die
-		clearAll();
-		gotoXY(51, 21);
-			cout << "\nGame Over";
-			cout << "\nPress any key to start again";
-			_getch();
-			ResetDir();
-			state = 1;
-			size = 1;
-		}
-	//making snake body follow head snake
+void Snake::Move(){
+	if (state == 0) 	ResetAll();
 	for (int i = size - 1; i > 0; i--){
 		Cell[i - 1]->copyPos(Cell[i]);
 	}
-	//turning head snake
-	CheckDir();
-	//check Dead
-	if (isDead()) {
+	CheckDir();				//turning head snake
+	if (isDead()) {			//check Dead
 		state = 0;
+		return;
 	}
 	//Check eat food
 	if (fruit.food.getX() == Cell[0]->getX() && fruit.food.getY() == Cell[0]->getY()){
@@ -105,16 +97,11 @@ void Snake::Move(int optionMap){
 		clearPoint(fruit.food.getX(), fruit.food.getY());
 		fruit.food.setPoint((rand() % (MAXFRAME_X - 1) + 1), (rand() % (MAXFRAME_Y - 1)) + 1);
 	}
-	//draw snake
 	TextColor(ColorCode_Green);
-	DrawSnake();
-	//make color fruit
+	DrawSnake();					//draw snake
 	TextColor(ColorCode_Red);
-	//Draw food
-	if (!blink)	fruit.food.Draw('#');
-	//Blink
-	blink = !blink;
+	fruit.food.Draw('#');			//Draw food
 	Sleep(100);
-	clearPoint(Cell[size-1]->getX(),Cell[size-1]->getY());
+	clearPoint(Cell[size-1]->getX(),Cell[size-1]->getY());			//clear last cell of snake
 	
 }
