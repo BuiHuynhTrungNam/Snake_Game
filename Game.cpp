@@ -2,7 +2,7 @@
 
 Game::Game()
 {
-	menu = nullptr;
+	board = nullptr;
 	snake = nullptr;
 	running = false;
 }
@@ -20,14 +20,29 @@ void Game::init()
 
 	running = true;
 
-	menu->showWelcomeScreen();
-	int option = menu->PlayMode();
+	board->WelcomeScreen();
+	int option = board->PlayMode();
+
+	int PlayAgain;
+	if (option == 1) {
+		do {
+			system("cls");
+			board->drawLines();
+			//Map::MapClassic();
+			// PlayGame::PlayMode_1(snake);
+			board->GameOverScreeen();
+			cin >> PlayAgain;
+		} while (PlayAgain == 1);
+	}
+
 
 	system("cls");
 }
 
 void Game::handleEvents()
 {
+
+
 	char op = 's'; //s = start
 	do {
 		if (_kbhit()) {

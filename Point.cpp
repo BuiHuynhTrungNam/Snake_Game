@@ -19,20 +19,20 @@ int Point::getY() {
 }
 void Point::moveUp() {
 	y--;
-	if (y < 1)	y = MAXFRAME_Y-1;
+	if (y < 1)	y = MAXFRAME_Y;
 
 }
 void Point::moveDown() {
 	y++;
-	if (y > MAXFRAME_Y-1) y = 1;
+	if (y > MAXFRAME_Y) y = 1;
 }
 void Point::moveLeft() {
 	x--;
-	if (x < 1)	x = MAXFRAME_X-1;
+	if (x < 1)	x = MAXFRAME_X;
 }
 void Point::moveRight() {
 	x++;
-	if (x > MAXFRAME_X-1) x = 1;
+	if (x > MAXFRAME_X) x = 1;
 }
 void Point::Draw(char ch) {
 	gotoXY(x, y);

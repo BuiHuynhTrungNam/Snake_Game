@@ -1,6 +1,6 @@
 #include "Snake.h"
 #include "Console.h"
-#include "Map.h"
+#include "Board.h"
 #include "Game.h"
 
 #include <time.h>

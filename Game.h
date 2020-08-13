@@ -1,9 +1,9 @@
 #pragma once
+
 #include "Console.h"
 #include "Snake.h"
-#include "Map.h"
+#include "Board.h"
 #include <ctime>
-
 class Game
 {
 public:
@@ -23,6 +23,6 @@ private:
 	bool running;
 	
 	Snake* snake;
-	Menu* menu;
+	Board* board;
 };
 
