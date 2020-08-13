@@ -1,6 +1,7 @@
 #pragma once
 #include"Point.h"
 #include<conio.h>
+
 using namespace std;
 #define MAXSIZESNAKE 100
 
@@ -31,7 +32,7 @@ public:
 	void CheckDir();			//Check New direction from keyboard
 	bool isDead();				//Check Dead
 	void DrawSnake();			
-	void Move(int optionMap);				//Snake's movement
+	void Move();				//Snake's movement
 	void ResetDir();						//reset dir
 	void clearPoint(int x, int y);
 	void clearAll();

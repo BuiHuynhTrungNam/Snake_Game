@@ -1,18 +1,21 @@
-#include"Snake.h"
-#include"Console.h"
-#include"Map.h"
-#include<time.h>
-
+#include "Snake.h"
+#include "Console.h"
+#include "Map.h"
 #include "Game.h"
+
+#include <time.h>
 
 int main()
 {
-	Game game;
+	Game *game = new Game();
 
+	game->init();
+	while (game->isRunning()) {
+		game->handleEvents();
+		game->update();
+		game->render();
+	}
 
-	Nocursortype();		//hide pointer
-	srand((unsigned)time(NULL));
-	Snake snake;	//object to play
-	Map::MainMenu(snake);	//Menu
+	game->clean();
 	return 0;
 }

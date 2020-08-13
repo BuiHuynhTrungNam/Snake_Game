@@ -99,7 +99,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Console.cpp" />
-    <ClCompile Include="Control.cpp" />
+    <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Point.cpp" />
@@ -107,7 +107,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Console.h" />
-    <ClInclude Include="Control.h" />
+    <ClInclude Include="Game.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="Snake.h" />

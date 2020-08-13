@@ -1,13 +1,12 @@
 #pragma once
 #include<iostream>
 #include"Snake.h"
+
 using namespace std;
-class Map {
+
+class Menu {
 public:
 	static int PlayMode();
-	static void WelcomeScreen();
-	static void MainMenu(Snake& snake);
+	static void showWelcomeScreen();
 	static void MapClassic();
 };
-
-

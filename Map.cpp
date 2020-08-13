@@ -2,8 +2,10 @@
 #include"Map.h"
 #include"Console.h"
 #include"Control.h"
-int Map::PlayMode(){
+
+int Menu::PlayMode(){
 	int option;
+	//TODO: store menu in a string array
 	TextColor(ColorCode_Blue);
 	cout<<	"1.New Game (1 player)" << endl;
 	TextColor(ColorCode_Red);
@@ -17,7 +19,7 @@ int Map::PlayMode(){
 	cin >> option;
 	return option;
 }
-void Map::WelcomeScreen(){
+void Menu::showWelcomeScreen(){
 	cout << "_________________     __                      __           _        _____________" << endl;
 	cout << "|                     | |          |         /  |          |    /   |" << endl;
 	cout << "|                     |  |         |        /    |         |   /    |" << endl;
@@ -29,9 +31,8 @@ void Map::WelcomeScreen(){
 	cout << "                 |    |        |   |  /                |   |  |     |" << endl;
 	cout << "=================     |         |__| /                  |  |   |    |_____________" << endl;
 	cout << endl;
-
 }
-void Map::MapClassic() {
+void Menu::MapClassic() {
 	cout << "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" << endl;
 	cout << "A                                                 A" << endl;
 	cout << "A                                                 A" << endl;
@@ -53,9 +54,4 @@ void Map::MapClassic() {
 	cout << "A                                                 A" << endl;
 	cout << "A                                                 A" << endl;
 	cout << "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" << endl;
-}
-void Map::MainMenu(Snake &snake) {
-	WelcomeScreen();
-	int option = PlayMode();
-	PlayGame::PlayMode_1(snake, option);
 }

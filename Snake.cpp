@@ -13,6 +13,7 @@ Snake::Snake(){
 	}
 	state = 1;
 	blink = 1;
+	dir = 1;
 	isUpdateSize = false;
 }
 void Snake::addCell(int x, int y){
@@ -78,7 +79,7 @@ void Snake::clearAll() {
 	}
 	clearPoint(fruit.food.getX(), fruit.food.getY());
 }
-void Snake::Move(int optionMap){
+void Snake::Move(){
 	if (state == 0) {  //if snake die
 		clearAll();
 		gotoXY(51, 21);
@@ -88,9 +89,9 @@ void Snake::Move(int optionMap){
 			ResetDir();
 			state = 1;
 			size = 1;
-		}
+	}
 	//making snake body follow head snake
-	for (int i = size - 1; i > 0; i--){
+	for (int i = size - 1; i > 0; i--) {
 		Cell[i - 1]->copyPos(Cell[i]);
 	}
 	//turning head snake

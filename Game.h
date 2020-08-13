@@ -1,4 +1,9 @@
 #pragma once
+#include "Console.h"
+#include "Snake.h"
+#include "Map.h"
+#include <ctime>
+
 class Game
 {
 public:
@@ -12,10 +17,12 @@ public:
 	void render();
 	void clean();
 
-	bool running();
+	bool isRunning();
 
 private:
-	bool isRunning;
-
+	bool running;
+	
+	Snake* snake;
+	Menu* menu;
 };
 
