@@ -13,63 +13,59 @@ Game::~Game()
 
 void Game::init()
 {
-	Nocursortype();		//hide pointer
+	Nocursortype(); //hide pointer
 	srand((unsigned)time(NULL));
 
-	snake = new Snake();	//object to play
+	snake = new Snake(); //object to play
 
 	running = true;
 
 	board->WelcomeScreen();
-	int option = board->PlayMode();
-
-	int PlayAgain;
-	if (option == 1) {
-		do {
-			system("cls");
-			board->drawLines();
-			//Map::MapClassic();
-			// PlayGame::PlayMode_1(snake);
-			board->GameOverScreeen();
-			cin >> PlayAgain;
-		} while (PlayAgain == 1);
-	}
-
-
-	system("cls");
+	// int option = board->PlayMode();
 }
 
 void Game::handleEvents()
 {
+	int playAgain = 0;
 
+	do
+	{
+		system("cls");
+		board->drawLines();
+		// board->MapClassic();
 
-	char op = 's'; //s = start
-	do {
-		if (_kbhit()) {
-			op = _getch();
-			switch (op)
+		char op;
+		do
+		{
+			if (_kbhit())
 			{
-			case'w':
-			case'W':
-				snake->TurnUp();
-				break;
-			case's':
-			case'S':
-				snake->TurnDown();
-				break;
-			case'a':
-			case'A':
-				snake->TurnLeft();
-				break;
-			case'd':
-			case'D':
-				snake->TurnRight();
-				break;
+				op = _getch();
+				switch (op)
+				{
+				case 'w':
+				case 'W':
+					snake->TurnUp();
+					break;
+				case 's':
+				case 'S':
+					snake->TurnDown();
+					break;
+				case 'a':
+				case 'A':
+					snake->TurnLeft();
+					break;
+				case 'd':
+				case 'D':
+					snake->TurnRight();
+					break;
+				}
 			}
-		}
-		snake->Move();
-	} while (op != 'q'); //q = quit
+			snake->Move();
+		} while (!snake->isDead()); //q = quit
 
+		board->GameOverScreeen();
+		std::cin >> playAgain;
+	} while (playAgain == 1);
 }
 
 void Game::update()

@@ -82,7 +82,7 @@ void Snake::clearAll() {
 	clearPoint(fruit.food.getX(), fruit.food.getY());
 }
 void Snake::Move(){
-	if (state == 0) 	ResetAll();
+	if (state == 0) ResetAll();
 	for (int i = size - 1; i > 0; i--){
 		Cell[i - 1]->copyPos(Cell[i]);
 	}
