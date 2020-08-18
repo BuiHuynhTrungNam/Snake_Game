@@ -4,7 +4,8 @@
 
 
 //-------------------------Screen-------------------------
-void clrscr(){
+void clrscr()
+{
 	CONSOLE_SCREEN_BUFFER_INFO	csbiInfo;
 	HANDLE	hConsoleOut;
 	COORD	Home = { 0,0 };
@@ -20,18 +21,19 @@ void clrscr(){
 }
 
 //screen: goto (x,y)
-void gotoXY(int column, int line){
+void gotoXY(int column, int line)
+{
 	COORD coord;
 	coord.X = column;
 	coord.Y = line;
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 }
 
-
 void TextColor(int color)
 {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
 }
+
 void Nocursortype()
 {
 	CONSOLE_CURSOR_INFO Info;

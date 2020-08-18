@@ -1,14 +1,23 @@
-#include"Board.h"
-#include"Console.h"
-#include"Control.h"
-#include"Point.h"
+#include "Board.h"
+#include "Console.h"
+#include "Control.h"
+#include "Coord.h"
 
 #define TOUCH_LINE_TOP 0
 #define TOUCH_LINE_BOTTOM (MAXFRAME_Y + 1)
 #define TOUCH_LINE_LEFT 0
 #define TOUCH_LINE_RIGHT (MAXFRAME_X + 1)
 
-int Board::PlayMode(){
+Coord Board::createObject(Coord object, int x, int y) 
+{
+	object = Coord(x, y);
+	_points.push_back(object);
+
+	return object;
+}
+
+int Board::PlayMode()
+{
 	int option;
 	//TODO: store menu in a string array
 	TextColor(ColorCode_Blue);
@@ -51,12 +60,14 @@ void Board::GameOverScreeen() {
 	cout << "Your Chose: ";
 }
 
-void Board::drawLines() {
+void Board::drawLines() 
+{
 	int xIndex, yIndex;
-	//it will be changed when we have more information 
+	
 	//draw line at the top of program
 	xIndex = 0, yIndex = TOUCH_LINE_TOP;
-	while (xIndex <= TOUCH_LINE_RIGHT) {
+	while (xIndex <= TOUCH_LINE_RIGHT) 
+	{
 		gotoXY(xIndex, yIndex);
 		cout << "+";
 		xIndex++;
@@ -64,7 +75,8 @@ void Board::drawLines() {
 
 	//draw line at the bottom of program
 	xIndex = 0, yIndex = TOUCH_LINE_BOTTOM;
-	while (xIndex <= TOUCH_LINE_RIGHT) {
+	while (xIndex <= TOUCH_LINE_RIGHT) 
+	{
 		gotoXY(xIndex, yIndex);
 		cout << "+";
 		xIndex++;
@@ -72,7 +84,8 @@ void Board::drawLines() {
 
 	//draw line at the left of program
 	xIndex = TOUCH_LINE_LEFT, yIndex = 0;
-	while (yIndex <= TOUCH_LINE_BOTTOM) {
+	while (yIndex <= TOUCH_LINE_BOTTOM) 
+	{
 		gotoXY(xIndex, yIndex);
 		cout << "+";
 		yIndex++;
@@ -80,14 +93,16 @@ void Board::drawLines() {
 
 	//draw line at the right of program
 	xIndex = TOUCH_LINE_RIGHT, yIndex = 0;
-	while (yIndex <= TOUCH_LINE_BOTTOM) {
+	while (yIndex <= TOUCH_LINE_BOTTOM) 
+	{
 		gotoXY(xIndex, yIndex);
 		cout << "+";
 		yIndex++;
 	}
 
 }
-void Board::MapClassic() {
+void Board::MapClassic() 
+{	
 	TextColor(ColorCode_Cyan);
 	cout << "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" << endl;
 	cout << "A                                                 A" << endl;

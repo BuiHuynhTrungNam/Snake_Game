@@ -9,19 +9,22 @@ Game::Game()
 
 Game::~Game()
 {
+	if (snake) delete snake;
+	if (board) delete board;
 }
 
 void Game::init()
 {
-	Nocursortype(); //hide pointer
+	// Initialize interface
+	Nocursortype();
 	srand((unsigned)time(NULL));
-
-	snake = new Snake(); //object to play
-
-	running = true;
-
+	
+	// Create objects
+	snake = new Snake();
 	board->WelcomeScreen();
-	// int option = board->PlayMode();
+
+	// Set game state
+	running = true;
 }
 
 void Game::handleEvents()
@@ -32,11 +35,11 @@ void Game::handleEvents()
 	{
 		system("cls");
 		board->drawLines();
-		// board->MapClassic();
-
+		
 		char op;
 		do
 		{
+			// Handle key
 			if (_kbhit())
 			{
 				op = _getch();
@@ -61,19 +64,26 @@ void Game::handleEvents()
 				}
 			}
 			snake->Move();
-		} while (!snake->isDead()); //q = quit
+			render();
+		} while (!snake->isDead());
 
 		board->GameOverScreeen();
 		std::cin >> playAgain;
+		snake->ResetAll();			//Reset o ngoai nay, do mac cong ham move cu chay if else
 	} while (playAgain == 1);
 }
 
 void Game::update()
 {
+	// Update snake position
 }
 
 void Game::render()
 {
+	// Render on the screen
+	snake->DrawObjects();
+	Sleep(100);						//mot cho nay cho them tham so, chinh clear tao ra level
+	snake->EraseTailSnake();		//Ben class Coord co ham Erase r, nen lam ham Erase tail dung cho tien
 }
 
 void Game::clean()
