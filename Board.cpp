@@ -10,10 +10,16 @@ Object* Board::createObject(ObjectType type, COORD coord)
 	
 	switch (type) {
 	case ObjectType::fruit: {
-			object = new Fruit(coord);
-			break;
-		}
-	//case ObjectType...
+		object = new Fruit(coord);
+		break;
+	}
+	case ObjectType::snake: {
+		object = new SnakeSegment(coord);
+		break;
+	}
+	//case ObjectType::wall: {
+	//	object = new Wall(coord);
+	//}
 	}
 
 	_points.push_back(object);
@@ -23,9 +29,14 @@ Object* Board::createObject(ObjectType type, COORD coord)
 void Board::destroyObject(COORD coord)
 {
 	for(auto i: _points) {
-		if (i->getX() == coord.X && i->getY() == coord.Y)
+		if (i->getX() == coord.X && i->getY() == coord.Y) {
 			i->Erase();
+			break;
+		}
 	}
+}
+void Board::clearObjects() {
+	_points.clear();
 }
 void Board::drawObjects()
 {

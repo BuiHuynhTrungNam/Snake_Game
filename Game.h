@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Console.h"
+#include "Object.h"
 #include "Board.h"
 #include "Snake.h"
 #include "Fruit.h"

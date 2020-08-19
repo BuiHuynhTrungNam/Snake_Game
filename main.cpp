@@ -1,9 +1,4 @@
-#include "Snake.h"
-#include "Console.h"
-#include "Board.h"
 #include "Game.h"
-
-#include <time.h>
 
 int main()
 {

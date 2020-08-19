@@ -1,17 +1,14 @@
 #pragma once
 #include <iostream>
-#include "Board.h"
 
-using namespace std;
+class Board;
 
 class Object {
 protected:
 	int x;
 	int y;
 	Board* _board;
-
 public:
-	Object();
 	Object(int x, int y);
 	
 	void setCoord(int x, int y);

@@ -10,9 +10,6 @@ void Game::init()
 	board = new Board(50, 20);
 	snake = new Snake();
 
-	// Link board to snake
-	snake->linkBoard(board);
-
 	//board->WelcomeScreen();
 
 	// Set game state
@@ -91,6 +88,8 @@ void Game::handleEvents()
 		// Game over scene
 		board->GameOverScreeen();
 		std::cin >> playAgain;
+
+		board->clearObjects();
 		snake->ResetAll();
 	} 
 	while (playAgain == 1);

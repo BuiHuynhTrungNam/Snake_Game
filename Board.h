@@ -27,6 +27,8 @@ public:
 	Object* createObject(ObjectType type, COORD coord);
 	void destroyObject(COORD coord);
 
+	void clearObjects();
+
 	void drawObjects();
 
 	int PlayMode();

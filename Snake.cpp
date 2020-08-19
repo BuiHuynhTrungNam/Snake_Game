@@ -1,9 +1,16 @@
 #include"Snake.h"
 
+SnakeSegment::SnakeSegment() : Object() {};
+SnakeSegment::SnakeSegment(int x, int y) : Object(x, y) {};
 void SnakeSegment::Draw() {
 	TextColor(ColorCode_Green);
 	gotoXY(x, y);
 	cout << 'O';
+}
+SnakeSegment::SnakeSegment(COORD coord)
+{
+	x = coord.X;
+	y = coord.Y;
 }
 
 Snake::Snake(){
@@ -17,10 +24,6 @@ void Snake::push_back(COORD coord)
 {
 	auto segment = _board->createObject(ObjectType::snake, coord);
 	cells.push_back((SnakeSegment*) segment); //TODO: use C++ pointer type cast
-}
-void Snake::linkBoard(Board* board)
-{
-	_board = board;
 }
 
 void Snake::TurnUp() {
@@ -86,9 +89,11 @@ void Snake::ResetAll() {
 	// Set snake default values
 	dir = Direction::dead_beat;
 	dead = false;
+	
 	cells.clear();
 	push_back({ 15, 15 });
-	fruit.food.setCoord((rand() % (_board->getWidth() - 1) + 1), (rand() % (_board->getHeight() - 1)) + 1);
+
+	//fruit.food.setCoord((rand() % (_board->getWidth() - 1) + 1), (rand() % (_board->getHeight() - 1)) + 1);
 }
 void Snake::EraseTailSnake() {
 	gotoXY(cells.back()->getX(), cells.back()->getY());

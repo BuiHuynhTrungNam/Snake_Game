@@ -1,12 +1,13 @@
 #pragma once
 #include <deque>
-
+#include <vector>
 #include "Object.h"
-#include "Board.h"
 #include "Fruit.h"
 #include "Console.h"
 
 using namespace std;
+
+class Fruit;
 
 enum class Direction {
 	up = 'w',
@@ -20,13 +21,13 @@ class SnakeSegment : public Object {
 public:
 	SnakeSegment();
 	SnakeSegment(int x, int y);
-	
+	SnakeSegment(COORD coord);
+
 	virtual void Draw();
 };
 
 class Snake {
 private:
-	Board* _board;
 	deque<SnakeSegment*> cells;
 	Direction dir;	//current director of snake
 	bool dead;
@@ -35,8 +36,6 @@ public:
 	Snake();
 
 	void push_back(COORD coord);
-
-	void linkBoard(Board *board);
 
 	void TurnUp();
 	void TurnDown();
