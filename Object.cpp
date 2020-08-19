@@ -1,9 +1,8 @@
 #include "Object.h"
-#include "Console.h"
 
-Object::Object(int x, int y) {
-	this->x = x;
-	this->y = y;
+Object::Object(COORD coord) {
+	x = coord.X;
+	y = coord.Y;
 	_board = nullptr;
 }
 void Object::setCoord(int x, int y) {

@@ -3,6 +3,5 @@
 
 class Wall : public Object {
 public:
-	Wall();
-	Wall(int x, int y);
+	Wall(COORD coord);
 };

@@ -12,6 +12,8 @@ void Game::init()
 
 	//board->WelcomeScreen();
 
+	snake->linkBoard(board);
+
 	// Set game state
 	running = true;
 }

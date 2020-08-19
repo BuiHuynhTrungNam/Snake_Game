@@ -1,18 +1,11 @@
 #include"Snake.h"
 
-SnakeSegment::SnakeSegment() : Object() {};
-SnakeSegment::SnakeSegment(int x, int y) : Object(x, y) {};
+SnakeSegment::SnakeSegment(COORD coord) : Object(coord) {};
 void SnakeSegment::Draw() {
 	TextColor(ColorCode_Green);
 	gotoXY(x, y);
 	cout << 'O';
 }
-SnakeSegment::SnakeSegment(COORD coord)
-{
-	x = coord.X;
-	y = coord.Y;
-}
-
 Snake::Snake(){
 	// Set snake default values
 	push_back({ 15, 15 });

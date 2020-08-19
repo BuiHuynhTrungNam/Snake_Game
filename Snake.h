@@ -19,24 +19,27 @@ enum class Direction {
 
 class SnakeSegment : public Object {
 public:
-	SnakeSegment();
 	SnakeSegment(int x, int y);
 	SnakeSegment(COORD coord);
 
-	virtual void Draw();
+	void Draw();
 };
 
-class Snake {
+class Snake { // Only snake head
 private:
 	deque<SnakeSegment*> cells;
 	Direction dir;	//current director of snake
 	bool dead;
+	Board* _board;
 
 public:
 	Snake();
 
 	void push_back(COORD coord);
 
+	void linkBoard(Board* board) {
+		_board = board;
+	}
 	void TurnUp();
 	void TurnDown();
 	void TurnLeft();

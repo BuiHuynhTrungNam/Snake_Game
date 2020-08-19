@@ -6,6 +6,6 @@
 
 class Fruit : public Object {
 public:
-	Fruit(COORD coord);
+	Fruit(const COORD& coord) : Object(coord) {}
 	void Draw();
 };

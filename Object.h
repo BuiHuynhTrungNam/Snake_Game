@@ -1,5 +1,7 @@
 #pragma once
 #include <iostream>
+#include <windows.h>
+#include "Console.h"
 
 class Board;
 
@@ -9,8 +11,8 @@ protected:
 	int y;
 	Board* _board;
 public:
-	Object(int x, int y);
-	
+	Object(COORD coord);
+
 	void setCoord(int x, int y);
 
 	int getX();
@@ -31,6 +33,6 @@ public:
 		return x == p.x && y == p.y;
 	}
 
-	void Debug();						//show (x,y) on console to debug =))
+	void Debug();
 };
 
