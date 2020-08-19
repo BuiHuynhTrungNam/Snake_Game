@@ -1,5 +1,25 @@
 #include "Game.h"
 
+void Game::init()
+{
+	// Initialize interface
+	Nocursortype();
+	srand((unsigned)time(NULL));
+
+	// Create objects
+	board = new Board(50, 20);
+	snake = new Snake();
+
+	// Link board to snake
+	snake->linkBoard(board);
+	fruit->linkBoard(board);
+
+	//board->WelcomeScreen();
+
+	// Set game state
+	running = true;
+}
+
 Game::Game()
 {
 	board = nullptr;
@@ -13,20 +33,6 @@ Game::~Game()
 	if (board) delete board;
 }
 
-void Game::init()
-{
-	// Initialize interface
-	Nocursortype();
-	srand((unsigned)time(NULL));
-	
-	// Create objects
-	snake = new Snake();
-	board->WelcomeScreen();
-
-	// Set game state
-	running = true;
-}
-
 void Game::handleEvents()
 {
 	int playAgain = 0;
@@ -34,9 +40,11 @@ void Game::handleEvents()
 	do
 	{
 		system("cls");
-		board->drawLines();
-		
+		//board->drawLines();
+
+		// Play scene
 		char op;
+
 		do
 		{
 			// Handle key
@@ -63,14 +71,30 @@ void Game::handleEvents()
 					break;
 				}
 			}
-			snake->Move();
-			render();
-		} while (!snake->isDead());
 
+			snake->Move();
+
+			// Handle collision
+			if (snake->onFruitCollision(fruits)) 
+			{
+				snake->EatFood();
+			}
+			else if (snake->isBodyCollision())
+			{
+				snake->setSnakeDead(true);
+			}
+			// TODO: handle wall collision
+
+			render();
+		} 
+		while (!snake->isDead());
+
+		// Game over scene
 		board->GameOverScreeen();
 		std::cin >> playAgain;
-		snake->ResetAll();			//Reset o ngoai nay, do mac cong ham move cu chay if else
-	} while (playAgain == 1);
+		snake->ResetAll();
+	} 
+	while (playAgain == 1);
 }
 
 void Game::update()
@@ -81,7 +105,8 @@ void Game::update()
 void Game::render()
 {
 	// Render on the screen
-	snake->DrawObjects();
+	board.drawObjects();
+
 	Sleep(100);						//mot cho nay cho them tham so, chinh clear tao ra level
 	snake->EraseTailSnake();		//Ben class Coord co ham Erase r, nen lam ham Erase tail dung cho tien
 }

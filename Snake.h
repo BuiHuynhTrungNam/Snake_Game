@@ -1,22 +1,12 @@
 #pragma once
-#include "Coord.h"
-#include <conio.h>
 #include <deque>
+
+#include "Object.h"
 #include "Board.h"
+#include "Fruit.h"
+#include "Console.h"
 
 using namespace std;
-
-#define MAXSIZESNAKE 100
-
-class Snake;
-
-class Food{
-	friend class Snake;
-private:
-	Coord food;
-public:
-	Food();
-};
 
 enum class Direction {
 	up = 'w',
@@ -26,23 +16,31 @@ enum class Direction {
 	dead_beat = '\0'
 };
 
+class SnakeSegment : public Object {
+public:
+	SnakeSegment();
+	SnakeSegment(int x, int y);
+};
 
-class Snake {			//1 snake create form many points
+class Snake {
 private:
-
-	std::deque<Coord*> cells;
-	//vector<SnakeSegment*> cells;
+	Board* _board;
+	deque<SnakeSegment*> cells;
 	Direction dir;	//current director of snake
-	Food fruit;	//food 
 	bool dead;
-	
+
 public:
 	Snake();
-	void addCell(int x, int y);	//add 1 point if snake eat food (size +1 )
+
+	void push_back(COORD coord);
+
+	void linkBoard(Board *board);
+
 	void TurnUp();
 	void TurnDown();
 	void TurnLeft();
 	void TurnRight();
+	bool onFruitCollision(vector<Fruit*> fruits);
 	void EatFood();
 
 	void handleHeadMove();
@@ -52,6 +50,8 @@ public:
 
 	bool isDead() { return dead; }
 	void Move();
+
+	void setSnakeDead(bool status);
 
 	void ResetAll();
 	void EraseTailSnake();

@@ -1,19 +1,20 @@
 #include"Snake.h"
-#include"Console.h"
-#include"Board.h"
 
-Food::Food(){
-	food.setCoord((rand() % (MAXFRAME_X-1))+1, (rand() % (MAXFRAME_Y-1))+1);
-}
 Snake::Snake(){
 	// Set snake default values
-	cells.push_back(new Coord(15, 15));
+	push_back({ 15, 15 });
+
 	dir = Direction::dead_beat;
 	dead = false;
 }
-void Snake::addCell(int x, int y){
-	
-	cells.push_back(new Coord(x, y));
+void Snake::push_back(COORD coord)
+{
+	auto segment = _board->createObject(ObjectType::snake, coord);
+	cells.push_back((SnakeSegment*) segment); //TODO: use C++ pointer type cast
+}
+void Snake::linkBoard(Board* board)
+{
+	_board = board;
 }
 
 void Snake::TurnUp() {
@@ -29,13 +30,22 @@ void Snake::TurnRight() {
 	if (dir != Direction::left) dir = Direction::right;
 }
 
-void Snake::EatFood() {
-	if (fruit.food.getX() == cells[0]->getX() && fruit.food.getY() == cells[0]->getY()) {
-		// Clear current food and set the new one
-		addCell(fruit.food.getX(), fruit.food.getY());
-		fruit.food.Erase();
-		fruit.food.setCoord((rand() % (MAXFRAME_X - 1) + 1), (rand() % (MAXFRAME_Y - 1)) + 1);
+bool Snake::onFruitCollision(vector<Fruit*> fruits) {
+	for (auto fruit : fruits) {
+		if (fruit->x == cells[0]->getX() || fruit->y == cells[0]->getY()) return true;
 	}
+	return false;
+}
+void Snake::EatFood() {
+	// Clear current food and set the new one
+	push_back({ cells[0]->getX(), cells[0]->getY() });
+		
+	// Destroy fruit
+	_board->destroyObject({ cells[0]->getX(), cells[0]->getY() });
+			
+	// Create new fruit
+	COORD coord = { rand() % (_board->getWidth() - 1) + 1, rand() % (_board->getHeight() - 1) + 1 } ;
+	_board->createObject(ObjectType::fruit, coord);
 }
 
 void Snake::handleHeadMove(){
@@ -57,7 +67,7 @@ void Snake::handleHeadMove(){
 bool Snake::isBodyCollision(){
 	if (cells.size() == 1) return false;
 	for (int i = 1; i < cells.size(); i++)
-		if (cells.front()->IsEqual(cells[i])) return true;
+		if (cells.front() == cells[i]) return true;
 
 	return false;
 }
@@ -70,6 +80,7 @@ void Snake::DrawObjects() {
 	for (int i = 0; i < cells.size(); i++) {
 		cells[i]->Draw(ColorCode_Green);
 	}
+	
 	fruit.food.Draw(ColorCode_Red, '#');
 }
 void Snake::ResetAll() {
@@ -77,19 +88,28 @@ void Snake::ResetAll() {
 	dir = Direction::dead_beat;
 	dead = false;
 	cells.clear();
-	cells.push_back(new Coord(15, 15));
-	fruit.food.setCoord((rand() % (MAXFRAME_X - 1) + 1), (rand() % (MAXFRAME_Y - 1)) + 1);
+	push_back({ 15, 15 });
+	fruit.food.setCoord((rand() % (_board->getWidth() - 1) + 1), (rand() % (_board->getHeight() - 1)) + 1);
 }
 void Snake::EraseTailSnake() {
 	gotoXY(cells.back()->getX(), cells.back()->getY());
 	cout << " ";
 }
 void Snake::Move(){
-	FreeLastSegment();				// Free last segment
-	handleHeadMove();				// Turning head snake
+	// When snake moves, all of its body follow the new head, free its last segment
+	FreeLastSegment();
+	
+	// Turning head snake
+	handleHeadMove();
+
 	if (isBodyCollision()) {		//check dead
 		dead = true;
 		return;
 	}
+
 	EatFood();						//Check eat food
+}
+
+void Snake::setSnakeDead(bool status) {
+	dead = status;
 }

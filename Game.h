@@ -1,9 +1,12 @@
 #pragma once
 
 #include "Console.h"
-#include "Snake.h"
 #include "Board.h"
+#include "Snake.h"
+#include "Fruit.h"
 #include <ctime>
+#include <conio.h>
+
 class Game
 {
 public:
@@ -24,5 +27,6 @@ private:
 	
 	Snake* snake;
 	Board* board;
+	vector<Fruit*> fruits;
 };
 

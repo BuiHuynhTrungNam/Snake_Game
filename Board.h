@@ -1,22 +1,41 @@
 #pragma once
 #include <iostream>
 #include <vector>
+#include <windows.h>
+
 #include "Snake.h"
-#include "Coord.h"
+#include "Object.h"
 
 using namespace std;
 
+enum class ObjectType {
+	snake,
+	wall,
+	fruit
+};
+
 class Board {
 private:
+	int _width;
+	int _height;
+
 	//There are points in a board
-	vector<Coord> _points;
+	vector<Object *> _points;
 public:
-	Coord createObject(Coord object, int x, int y);
+	Board(int width, int height) : _width(width), _height(height) {}
+
+	Object* createObject(ObjectType type, COORD coord);
+	void destroyObject(COORD coord);
+
+	void drawObjects();
+
 	int PlayMode();
-	bool isOccupied();
+	bool isOccupied(const Object& point);
+
 	void WelcomeScreen();
-	//void MainMenu(Snake& snake);
 	void GameOverScreeen();
-	void drawLines();
 	void MapClassic();
+
+	int getWidth() { return _width; }
+	int getHeight() { return _height; }
 };

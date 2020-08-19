@@ -1,21 +1,30 @@
+
 #include "Board.h"
 #include "Console.h"
 #include "Control.h"
-#include "Coord.h"
+#include "Object.h"
 
-#define TOUCH_LINE_TOP 0
-#define TOUCH_LINE_BOTTOM (MAXFRAME_Y + 1)
-#define TOUCH_LINE_LEFT 0
-#define TOUCH_LINE_RIGHT (MAXFRAME_X + 1)
-
-Coord Board::createObject(Coord object, int x, int y) 
+Object* Board::createObject(ObjectType type, COORD coord)
 {
-	object = Coord(x, y);
+	Object* object = new Object(coord.X, coord.Y);
+
 	_points.push_back(object);
 
 	return object;
 }
-
+void Board::destroyObject(COORD coord)
+{
+	for(auto i: _points) {
+		if (i->getX() == coord.X && i->getY() == coord.Y)
+			i->Erase();
+	}
+}
+void Board::drawObjects()
+{
+	for (auto i : _points) {
+		i->Draw();
+	}
+}
 int Board::PlayMode()
 {
 	int option;
@@ -32,6 +41,13 @@ int Board::PlayMode()
 	cout << "Enter your choose: ";
 	cin >> option;
 	return option;
+}
+bool Board::isOccupied(const Object& point)
+{
+	for (auto i : _points) {
+		if (*i == point) return true;
+	}
+	return false;
 }
 void Board::WelcomeScreen(){
 	cout << "_________________     __                      __           _        _____________" << endl;
@@ -60,47 +76,6 @@ void Board::GameOverScreeen() {
 	cout << "Your Chose: ";
 }
 
-void Board::drawLines() 
-{
-	int xIndex, yIndex;
-	
-	//draw line at the top of program
-	xIndex = 0, yIndex = TOUCH_LINE_TOP;
-	while (xIndex <= TOUCH_LINE_RIGHT) 
-	{
-		gotoXY(xIndex, yIndex);
-		cout << "+";
-		xIndex++;
-	}
-
-	//draw line at the bottom of program
-	xIndex = 0, yIndex = TOUCH_LINE_BOTTOM;
-	while (xIndex <= TOUCH_LINE_RIGHT) 
-	{
-		gotoXY(xIndex, yIndex);
-		cout << "+";
-		xIndex++;
-	}
-
-	//draw line at the left of program
-	xIndex = TOUCH_LINE_LEFT, yIndex = 0;
-	while (yIndex <= TOUCH_LINE_BOTTOM) 
-	{
-		gotoXY(xIndex, yIndex);
-		cout << "+";
-		yIndex++;
-	}
-
-	//draw line at the right of program
-	xIndex = TOUCH_LINE_RIGHT, yIndex = 0;
-	while (yIndex <= TOUCH_LINE_BOTTOM) 
-	{
-		gotoXY(xIndex, yIndex);
-		cout << "+";
-		yIndex++;
-	}
-
-}
 void Board::MapClassic() 
 {	
 	TextColor(ColorCode_Cyan);
