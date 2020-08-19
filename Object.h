@@ -18,7 +18,7 @@ public:
 
 	int getX();
 	int getY();
-	virtual void Draw(int color, char ch = 'O') = 0;
+	virtual void Draw() = 0;
 
 	// Should be remove
 	void moveUp();

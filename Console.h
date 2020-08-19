@@ -29,19 +29,14 @@
 #define key_Right	1077
 #define key_none	-1
 
-//--------------------------------------------------------
-
 #include <windows.h>
 
-
-//-------------------------Screen-------------------------
 void clrscr();
 
 //screen: goto [x,y]
 void gotoXY(int column, int line);
-
 void TextColor(int color);
-//end----------------------Screen----------------------end
 
 void Nocursortype();
+
 #endif

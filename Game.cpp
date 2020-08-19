@@ -12,7 +12,6 @@ void Game::init()
 
 	// Link board to snake
 	snake->linkBoard(board);
-	fruit->linkBoard(board);
 
 	//board->WelcomeScreen();
 
@@ -105,7 +104,7 @@ void Game::update()
 void Game::render()
 {
 	// Render on the screen
-	board.drawObjects();
+	board->drawObjects();
 
 	Sleep(100);						//mot cho nay cho them tham so, chinh clear tao ra level
 	snake->EraseTailSnake();		//Ben class Coord co ham Erase r, nen lam ham Erase tail dung cho tien

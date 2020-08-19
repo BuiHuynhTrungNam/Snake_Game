@@ -6,7 +6,15 @@
 
 Object* Board::createObject(ObjectType type, COORD coord)
 {
-	Object* object = new Object(coord.X, coord.Y);
+	Object* object;
+	
+	switch (type) {
+	case ObjectType::fruit: {
+			object = new Fruit(coord);
+			break;
+		}
+	//case ObjectType...
+	}
 
 	_points.push_back(object);
 

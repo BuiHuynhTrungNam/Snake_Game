@@ -34,11 +34,6 @@ void Object::moveRight() {
 	x++;
 	if (x > _board->getWidth()) x = 1;
 }
-void Object::Draw(int color, char ch) {
-	TextColor(color);
-	gotoXY(x, y);
-	cout << ch;
-}
 void Object::Erase() {
 	gotoXY(x, y);
 	cout << " ";

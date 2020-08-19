@@ -20,6 +20,8 @@ class SnakeSegment : public Object {
 public:
 	SnakeSegment();
 	SnakeSegment(int x, int y);
+	
+	virtual void Draw();
 };
 
 class Snake {
@@ -46,7 +48,6 @@ public:
 	void handleHeadMove();
 	bool isBodyCollision();
 	void FreeLastSegment();
-	void DrawObjects();
 
 	bool isDead() { return dead; }
 	void Move();

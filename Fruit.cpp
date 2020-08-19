@@ -11,7 +11,8 @@ void Fruit::linkBoard(Board* board)
 	_board = board;
 }
 
-void Fruit::drawObject()
-{
-
+void Fruit::Draw() {
+	TextColor(ColorCode_Red);
+	gotoXY(x, y);
+	cout << '#';
 }

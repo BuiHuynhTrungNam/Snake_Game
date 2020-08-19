@@ -1,5 +1,11 @@
 #include"Snake.h"
 
+void SnakeSegment::Draw() {
+	TextColor(ColorCode_Green);
+	gotoXY(x, y);
+	cout << 'O';
+}
+
 Snake::Snake(){
 	// Set snake default values
 	push_back({ 15, 15 });
@@ -32,7 +38,7 @@ void Snake::TurnRight() {
 
 bool Snake::onFruitCollision(vector<Fruit*> fruits) {
 	for (auto fruit : fruits) {
-		if (fruit->x == cells[0]->getX() || fruit->y == cells[0]->getY()) return true;
+		if (fruit->getX() == cells[0]->getX() || fruit->getY() == cells[0]->getY()) return true;
 	}
 	return false;
 }
@@ -76,13 +82,6 @@ void Snake::FreeLastSegment() {
 		cells[i - 1]->copyPos(cells[i]);
 	}
 }
-void Snake::DrawObjects() {
-	for (int i = 0; i < cells.size(); i++) {
-		cells[i]->Draw(ColorCode_Green);
-	}
-	
-	fruit.food.Draw(ColorCode_Red, '#');
-}
 void Snake::ResetAll() {
 	// Set snake default values
 	dir = Direction::dead_beat;
@@ -101,13 +100,6 @@ void Snake::Move(){
 	
 	// Turning head snake
 	handleHeadMove();
-
-	if (isBodyCollision()) {		//check dead
-		dead = true;
-		return;
-	}
-
-	EatFood();						//Check eat food
 }
 
 void Snake::setSnakeDead(bool status) {
